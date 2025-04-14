@@ -1,0 +1,76 @@
+.text
+
+_start:
+    lui     a0, %hi(0x80)
+    addi    a0, a0, %lo(0x80)
+    lw      a0, 0(a0)
+
+    bgt     zero, a0, negate_number
+
+start_recursion:
+    addi    a1, zero, 0
+    jal     ra, sum_digits_recursive
+    
+    lui     t0, %hi(0x84)
+    addi    t0, t0, %lo(0x84)
+    sw      a1, 0(t0)
+    halt
+
+negate_number:
+    sub     a0, zero, a0
+    j       start_recursion
+
+sum_digits_recursive:
+    addi    sp, sp, -8
+    sw      ra, 4(sp)
+    sw      a0, 0(sp)
+
+    beqz    a0, return_current_sum
+
+    addi    t0, zero, 10
+    rem     t1, a0, t0
+    add     a1, a1, t1
+    div     a0, a0, t0
+
+    jal     ra, sum_digits_recursive
+
+return_current_sum:
+    lw      a0, 0(sp)
+    lw      ra, 4(sp)
+    addi    sp, sp, 8
+    jr      ra
+
+
+
+mine\
+    .text
+
+    _start:
+        lui     a0, %hi(0x80)
+        addi    a0, a0, %lo(0x80)
+        lw      a0, 0(a0)
+
+        addi    t0, zero, 0
+        addi    t2, zero, 10
+        addi    t1, zero, 0
+
+        bgt     t0, a0, negate
+
+    continue_with_positive_number:
+        beqz    a0, end_end_write_to_84
+
+        rem     t3, a0, t2
+        add     t1, t1, t3
+        div     a0, a0, t2
+
+        j       continue_with_positive_number
+
+    negate:
+        sub     a0, zero, a0
+        j       continue_with_positive_number
+
+    end_end_write_to_84:
+        lui     t0, %hi(0x84)
+        addi    t0, t0, %lo(0x84)
+        sw      t1, 0(t0)
+        halt

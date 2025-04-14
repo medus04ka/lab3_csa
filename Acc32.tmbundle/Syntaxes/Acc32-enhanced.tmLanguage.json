@@ -1,0 +1,46 @@
+{
+  "name": "Acc32",
+  "scopeName": "source.acc32",
+  "fileTypes": [
+    "acc32"
+  ],
+  "patterns": [
+    {
+      "match": "^\\s*[A-Za-z_][\\w]*:",
+      "name": "entity.name.label.acc32"
+    },
+    {
+      "match": "\\.(data|text|word)\\b",
+      "name": "storage.type.directive.acc32"
+    },
+    {
+      "match": "\\b(load_imm|load|store|load_addr|store_addr|load_ind|store_ind)\\b",
+      "name": "keyword.control.acc32.data"
+    },
+    {
+      "match": "\\b(add|sub|mul|div|rem|clv)\\b",
+      "name": "keyword.control.acc32.arithmetic"
+    },
+    {
+      "match": "\\b(shiftl|shiftr|and|or|xor|not)\\b",
+      "name": "keyword.control.acc32.bitwise"
+    },
+    {
+      "match": "\\b(jmp|beqz|bnez|bgt|ble|bvs|bvc|bcs|bcc|halt)\\b",
+      "name": "keyword.control.acc32.flow"
+    },
+    {
+      "match": ";.*$",
+      "name": "comment.line.semicolon.acc32"
+    },
+    {
+      "match": "\\b0x[0-9a-fA-F]+\\b",
+      "name": "constant.numeric.hex.acc32"
+    },
+    {
+      "match": "\\b\\d+\\b",
+      "name": "constant.numeric.decimal.acc32"
+    }
+  ],
+  "uuid": "acc32-tm-language-uuid"
+}

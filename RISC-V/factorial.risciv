@@ -1,0 +1,50 @@
+.text
+
+_start:
+    lui     a0, %hi(0x80)
+    addi    a0, a0, %lo(0x80)
+    lw      a0, 0(a0)
+
+    jal     ra, factorial
+
+    lui     t0, %hi(0x84)
+    addi    t0, t0, %lo(0x84)
+    sw      a0, 0(t0)
+    halt
+
+factorial:
+    beqz    a0, return_one
+    addi    t0, zero, 0
+    bgt     t0, a0, return_neg_one
+    addi    t0, zero, 1
+    beq     a0, t0, return_one
+
+    addi    t0, zero, 12
+    bgt     a0, t0, return_CCCCCCCC
+
+    addi    sp, sp, -8
+    sw      ra, 4(sp)
+    sw      a0, 0(sp)
+
+    addi    a0, a0, -1
+    jal     ra, factorial
+
+    lw      t0, 0(sp)
+    lw      ra, 4(sp)
+    addi    sp, sp, 8
+
+    mul     a0, t0, a0
+    jr      ra
+
+return_CCCCCCCC:
+    lui     a0, 0xCCCCC
+    addi    a0, a0, 0xCCC
+    jr      ra
+
+return_neg_one:
+    addi    a0, zero, -1
+    jr      ra
+
+return_one:
+    addi    a0, zero, 1
+    jr      ra

@@ -1,0 +1,54 @@
+.data
+input_ptr:      .word 0x80
+output_ptr:     .word 0x84
+
+mask:           .word 0xFF
+shift_8:        .word 8
+shift_16:       .word 16
+shift_24:       .word 24
+
+b0:             .word 0
+b1:             .word 0
+b2:             .word 0
+b3:             .word 0
+result:         .word 0
+
+.text
+_start:
+    load_ind    input_ptr
+    store       result        ; result = n
+
+    ; B0 = (n >> 24) & 0xFF
+    load        result
+    shiftr      shift_24
+    and         mask
+    store       b0
+
+    ; B1 = (n >> 16) & 0xFF
+    load        result
+    shiftr      shift_16
+    and         mask
+    shiftl      shift_8       ; <<= 8
+    store       b1
+
+    ; B2 = (n >> 8) & 0xFF
+    load        result
+    shiftr      shift_8
+    and         mask
+    shiftl      shift_16      ; <<= 16
+    store       b2
+
+    ; B3 = n & 0xFF
+    load        result
+    and         mask
+    shiftl      shift_24      ; <<= 24
+    store       b3
+
+    ; result = B0 | B1 | B2 | B3
+    load        b0
+    or          b1
+    or          b2
+    or          b3
+    store_ind   output_ptr
+
+    halt
