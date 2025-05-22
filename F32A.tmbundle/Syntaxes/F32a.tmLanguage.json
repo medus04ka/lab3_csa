@@ -1,0 +1,46 @@
+{
+  "name": "F32a",
+  "scopeName": "source.f32a",
+  "fileTypes": [
+    "f32a"
+  ],
+  "patterns": [
+    {
+      "match": "^\\s*[A-Za-z_][\\w]*:",
+      "name": "entity.name.label.f32a"
+    },
+    {
+      "match": "\\\\.*$",
+      "name": "comment.line.backslash.f32a"
+    },
+    {
+      "match": "\\b(lit|@p|@|\\@b|@+|!p|!|!+|!b|a!|b!|a)\\b",
+      "name": "keyword.control.f32a.data"
+    },
+    {
+      "match": "\\b(\\+|\\+\\*|\\+\\/|2\\*|2\\/|inv|eam)\\b",
+      "name": "keyword.control.f32a.arithmetic"
+    },
+    {
+      "match": "\\b(and|xor)\\b",
+      "name": "keyword.control.f32a.bitwise"
+    },
+    {
+      "match": "\\b(drop|dup|over)\\b",
+      "name": "keyword.control.f32a.stack"
+    },
+    {
+      "match": "\\b(next|if|-if|halt)\\b|;",
+      "name": "keyword.control.f32a.flow"
+    },
+    {
+      "match": "\\b(r>|>r)\\b",
+      "name": "keyword.control.f32a.register"
+    },
+    {
+      "match": "\\b\\d+\\b|\\b0x[0-9a-fA-F]+\\b",
+      "name": "constant.numeric.f32a"
+    }
+  ],
+  "uuid": "f32a-tm-language-uuid"
+}
